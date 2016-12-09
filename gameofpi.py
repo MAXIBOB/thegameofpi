@@ -31,7 +31,12 @@ def hello(name=None):
     return render_template('hello.html', name=name)
 @app.route('/map')
 def mapping():
-    return render_template('map.html')
+    my_map=[]
+    for x in range(8):
+        my_map[x]=[]
+        for y in range(8):
+            my_map[x][y]=' '
+    return render_template('map.html', map=my_map)
 
 @app.route("/up")
 def up():

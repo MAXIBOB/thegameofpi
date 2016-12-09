@@ -4,6 +4,20 @@
   <title>Hello from Flask</title>
  </meta>
 <body>
-<a href="/up">Up</a>
+ <a href="/up">Up</a>
+ <table>
+     <tr>
+         <td rawspan=10>Right</td>
+         <td colspan=8>Up</td>
+         <td rawspan=10>Left</td>
+     </tr>
+     {% for row in map %}
+     <tr>
+     {% for cell in row %}
+     <td>{{ cell }}</td>
+     {% endfor %}
+     </tr>
+     {% endfor %}
+ </table>
 </body>
 </html>
