@@ -1,6 +1,9 @@
 from flask import Flask, render_template
-from sense_hat import SenseHat
-sense=SenseHat()
+try:
+    from sense_hat import SenseHat
+    sense=SenseHat()
+except ImportError:
+    pass
 
 def color(c,d):
     global sense
@@ -9,15 +12,17 @@ def color(c,d):
 def clear(c,d):
     global sense
     sense.set_pixel(c,d,0,0,0)
+
 def blank():
     for x in range(8):
         for y in range(8):
             clear(x, y)
 
 app = Flask(__name__)
+app.debug=True
+
 x=4
 y=4
-
 
 @app.route("/")
 def index():
@@ -29,9 +34,18 @@ def hello(name=None):
     if name:
         sense.show_message(name)
     return render_template('hello.html', name=name)
+
 @app.route('/map')
 def mapping():
-    return render_template('map.html')
+    my_map=[]
+    global sense
+    position=sense.get_pixels()
+    for i in range(8):
+        my_map.append([])
+        for q in range(8):
+            a=position[q*8+i]
+            my_map[i].append(a)
+    return render_template('map.html', map=my_map)
 
 @app.route("/up")
 def up():

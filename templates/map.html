@@ -4,9 +4,23 @@
   <title>Hello from Flask</title>
  </meta>
 <body>
-<a href="/up">Up</a>
-<a href="/down">Down</a>
-<a href="/right">Right</a>
-<a href="/left">Left</a>
+ <a href="/up">Up</a>
+ <table border=1>
+     <tr>
+         <td rowspan=10><a href="/left">Left</a></td>
+         <td colspan=8><a href="/up">Up</a></td>
+         <td rowspan=10><a href="/right">Right</a></td>
+     </tr>
+     {% for row in map %}
+     <tr>
+     {% for cell in row %}
+     <td>{{ cell }}</td>
+     {% endfor %}
+     </tr>
+     {% endfor %}
+     <tr>
+         <td colspan=8><a href="/down">Down</a></td>
+     </tr>
+ </table>
 </body>
 </html>
