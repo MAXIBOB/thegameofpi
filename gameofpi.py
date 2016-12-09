@@ -85,5 +85,5 @@ def right():
     return "It's gone the right way"
 
 if __name__ == "__main__":
-    # blank()
+    blank()
     app.run()
