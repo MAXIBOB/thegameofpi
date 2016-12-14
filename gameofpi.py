@@ -55,7 +55,7 @@ def up():
     if y>7:
         y=0
     color(x,y)
-    return "It's Up"
+    return redirect(url_for("map"))
 
 @app.route("/down")
 def down():
@@ -65,7 +65,7 @@ def down():
     if y<0:
         y=7
     color(x,y)
-    return "It's Down"
+    return redirect(url_for("map"))
 
 @app.route("/left")
 def left():
@@ -75,7 +75,7 @@ def left():
     if x<0:
         x=7
     color(x,y)
-    return "It's gone left"
+    return redirect(url_for("map"))
 
 @app.route("/right")
 def right():
@@ -85,7 +85,7 @@ def right():
     if x>7:
         x=0
     color(x,y)
-    return "It's gone the right way"
+    return redirect(url_for("map"))
 
 if __name__ == "__main__":
     blank()
