@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 try:
     from sense_hat import SenseHat
     sense=SenseHat()
@@ -40,32 +40,33 @@ def mapping():
     my_map=[]
     global sense
     position=sense.get_pixels()
-    for i in range(8):
+    for y in range(8):
         my_map.append([])
-        for q in range(8):
-            a=position[q*8+i]
-            my_map[i].append(a)
+        for x in range(8):
+            a=position[y*8+x]
+            my_map[y].append(a)
+                
     return render_template('map.html', map=my_map)
 
-@app.route("/up")
-def up():
+@app.route("/down")
+def down():
     global x,y
     clear(x,y)
     y = y+1
     if y>7:
         y=0
     color(x,y)
-    return redirect(url_for("map"))
+    return redirect(url_for("mapping"))
 
-@app.route("/down")
-def down():
+@app.route("/up")
+def up():
     global x,y
     clear(x,y)
     y = y-1
     if y<0:
         y=7
     color(x,y)
-    return redirect(url_for("map"))
+    return redirect(url_for("mapping"))
 
 @app.route("/left")
 def left():
@@ -75,7 +76,7 @@ def left():
     if x<0:
         x=7
     color(x,y)
-    return redirect(url_for("map"))
+    return redirect(url_for("mapping"))
 
 @app.route("/right")
 def right():
@@ -85,7 +86,7 @@ def right():
     if x>7:
         x=0
     color(x,y)
-    return redirect(url_for("map"))
+    return redirect(url_for("mapping"))
 
 if __name__ == "__main__":
     blank()
